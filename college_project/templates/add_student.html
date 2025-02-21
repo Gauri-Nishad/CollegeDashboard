@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+   
+        <section class="create-post">
+            <h2>New Student</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <label for="profile_pic">Profile Picture:</label>
+                <input type="file" id="profile_pic" name="profile_pic" placeholder="upload the picture">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Enter the first name">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Enter the last name ">
+                <label for="dob">Date Of Birth:</label>
+                <input type="date" id="dob" name="dob" placeholder="Enter the date of birth ">
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender" placeholder="Enter the gender">
+                <label for="blood_group">Blood Group:</label>
+                <input type="text" id=" blood_group" name="blood_group" placeholder="Enter the blood group">
+                <label for="contact_number">Contact Number:</label>
+                <input type="mobile" id="contact_number" name="contact_number" placeholder="Enter the contact number ">
+                <label for="subjects">Subject</label>
+                {% for s in subjects %}
+                <input type="checkbox" id="check{{s.id}}" name="subjects" value="{{s.id}}" style="float: left; margin-top: 5px;">
+                <label for="check{{s.id}}"> {{s.name}}</label>
+                {% endfor %}    
+                {% comment %} <select name="subjects" id="subjects">
+                    <option >Select Subject</option>
+                    {% for s in subjects %}
+                    <option value="{{s.id}}">{{s.name}}</option>
+                    {% endfor %}
+                </select> {% endcomment %}
+                <label for="address">Address</label>
+                <textarea id="address" name="address" placeholder="enter the address " rows="5"></textarea>
+             
+                <button class="post-button" type="submit" >Submit</button>
+            </form>
+        </section>
+  
+
+    {% endblock %}

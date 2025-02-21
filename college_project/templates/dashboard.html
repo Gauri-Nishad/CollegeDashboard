@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="all-posts mb-4">
+
+    
+  
+   <div class="container">
+    <div class="row">
+      <div class="col" style="display:flex; justify-content:start;  ">
+        <h2>Users Details</h2> </div>
+       <div class="col">
+    <a href="{% url 'college_app:add_user' %}"   class="add-button" title="Add"> Add </a> </div>
+    
+    </div>
+    
+    <table class="table mytable">
+       
+        <thead class="headtext">    
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">profile_pic</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Gender</th>
+            
+            <th scope="col">Blood Group</th>
+            <th scope="col">Contact Number</th>
+            
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            
+            {% comment %} <th scope="col">Subjects</th> {% endcomment %}
+            <th scope="col">Action</th>
+            
+            
+            
+          </tr>
+        </thead>
+        <tbody class="bodytext">
+
+
+          {% if role == "Admin" %}
+          {% for  user in  users%}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            {%  if user.profile_pic %}
+           
+          
+            <td><img src="{{user.profile_pic}}" style="height:50px; width:50px"></td> 
+           {% else %}
+           <td><p> No Picture!</td> 
+            {% endif %}
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.blood_group}}</td>
+            <td>{{user.contact_number}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.address}}</td>
+           
+            
+            <div class="btns">
+              {% if role_id == user.role_id or role == "Admin"  or role == "Teachers" %}
+            <td> <a href="{% url 'college_app:updateuser' user.id %}"  style="color:black;text-decoration:none;"><ion-icon name="create-outline" class="edit"></ion-icon></a>
+
+              <a href="{% url 'college_app:deleteuser' user.id %}"  class="delete-button"  ><ion-icon name="trash-outline"></ion-icon></a>  
+
+              <a href="{% url 'college_app:getuser' user.id %}"  class="delete-button"  ><ion-icon name="eye-outline"></ion-icon></a></td>
+
+            {% endif %}  
+            </div>
+          </tr>
+          {% endfor %}
+
+
+
+          {% endif %}
+
+          {% if role == "Teacher" %}
+          {% for  user in  users%}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            {%  if user.profile_pic %}
+           
+          
+            <td><img src="{{user.profile_pic}}" style="height:50px; width:50px"></td> 
+           {% else %}
+           <td><p> No Picture!</td> 
+            {% endif %}
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.blood_group}}</td>
+            <td>{{user.contact_number}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.address}}</td>
+           
+            
+            <div class="btns">
+            
+            <td> <a href="{% url 'college_app:updateuser' user.id %}"  style="color:black;text-decoration:none;"><ion-icon name="create-outline" class="edit"></ion-icon></a>
+
+              <a href="{% url 'college_app:getuser' user.id %}"  class="delete-button"  ><ion-icon name="eye-outline"></ion-icon></a></td>
+
+         
+            </div>
+          </tr>
+          {% endfor %}
+
+          {% endif %}
+
+
+
+
+
+          {% if role == "Student" %}
+          {% for  user in  users%}
+          
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+
+      
+            {%  if user.profile_pic %}
+            <td><img src="{{user.profile_pic}}" style="height:50px; width:50px"></td> 
+           {% else %}
+           <td><p> No Picture!</td> 
+            {% endif %}
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.blood_group}}</td>
+            <td>{{user.contact_number}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.address}}</td>
+            <div class="btns">
+            
+            <td> <a href="{% url 'college_app:updateuser' user.id %}"  style="color:black;text-decoration:none;"><ion-icon name="create-outline" class="edit"></ion-icon></a>
+              <a href="{% url 'college_app:getuser' user.id %}"  class="delete-button"  ><ion-icon name="eye-outline"></ion-icon></a></td>
+          
+            </div>
+          </tr>
+
+
+          
+  
+
+          {% endfor %}
+          {% endif %}
+
+
+
+
+
+
+
+
+
+        </tbody>
+      </table>
+
+   
+   
+    
+    </div>
+
+</section>
+
+{% endblock %}

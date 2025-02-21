@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<section class="view-user">
+    <h2>View User Details</h2>
+    <div class="row">
+    <div class="col-4">
+        <label for="profile_pic">Profile Picture:</label>
+        <div id="preview">
+            <img src="{{ user.profile_pic }}" style="height:50px; width:50px;">
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <label for="first_name">First Name:</label>
+        <span id="first_name">{{ user.first_name }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="last_name">Last Name:</label>
+        <span id="last_name">{{ user.last_name }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="dob">Date Of Birth:</label>
+        <span id="dob">{{ user.dob }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="gender">Gender:</label>
+        <span id="gender">{{ user.gender }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="blood_group">Blood Group:</label>
+        <span id="blood_group">{{ user.blood_group }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="contact_number">Contact Number:</label>
+        <span id="contact_number">{{ user.contact_number }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="email">Email:</label>
+        <span id="email">{{ user.email }}</span>
+    </div>
+    
+    <div class="col-4">
+        <label for="address">Address:</label>
+        <p id="address">{{ user.address }}</p>
+    </div>
+    
+    <div class="col-4">
+        <label for="role">Role:</label>
+     
+
+       
+                 
+        <span>
+            {% for  role in roles %}
+            {% if  role.id  == user.role %}
+            {{role.name}}
+            {% endif %}
+            {% endfor %}
+        </span>
+       
+      
+       
+    </div>
+    
+    <div class="col-4">
+        <label for="subjects">Subjects:</label>
+        <ul id="subjects">
+            {% for s in subjects %}
+            {% if s.id in user.subjects %}
+            <li>{{ s.name }}</li>
+           
+            {% endif %}
+            
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="col-4">
+        <label for="username">Username:</label>
+        <span id="username">{{ user.username }}</span>
+    </div>
+
+    <div class="col">
+        <a href="{% url 'college_app:dashboard' %}"   class="add-button"> <ion-icon class="back-icon" name="arrow-undo-outline"></ion-icon>Go Back</a> </div>
+        
+
+</div>
+</section>
+{% endblock %}

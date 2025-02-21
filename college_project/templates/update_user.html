@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+   
+        <section class="create-post">
+            <h2>Update Student</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <label for="profile_pic">Profile Picture:</label>
+                <div id="preview"  > <img src="{{user.profile_pic}}" style="height:50px; width:50px;"></div>
+                <input type="file" value="{{user.profile_pic.url}}" onchange="getImage(event)" id="profile_pic" name="profile_pic" placeholder="upload the picture" >
+                <label for="first_name">First Name:</label>
+                <input type="text"  value="{{user.first_name}}" id="first_name" name="first_name" placeholder="Enter the first name">
+                <label for="last_name">Last Name:</label>
+                <input type="text" value="{{user.last_name}}" id="last_name" name="last_name" placeholder="Enter the last name ">
+                <label for="dob">Date Of Birth:</label>
+                <input type="date" value="{{user.dob}}" id="dob" name="dob" placeholder="Enter the date of birth ">
+                <label for="gender">Gender:</label>
+                <input type="text" value="{{user.gender}}"id="gender" name="gender" placeholder="Enter the gender">
+                <label for="blood_group">Blood Group:</label>
+                <input type="text" value="{{user.blood_group}}" id=" blood_group" name="blood_group" placeholder="Enter the blood group">
+                <label for="contact_number">Contact Number:</label>
+                <input type="mobile" value="{{user.contact_number}}" id="contact_number" name="contact_number" placeholder="Enter the contact number ">
+                <label for="contact_number">Email:</label>
+                <input type="email" value="{{user.email}}" id="email" name="email" placeholder="Enter an email ">
+                <label for="address">Address</label>
+                <textarea id="address"  name="address" placeholder="enter the address " rows="5">{{user.address}}</textarea>
+                
+                <label for="role" class="form-label">Role*</label>
+                <select class="form-control" id="role"  name="role">
+                <option>Select Role</option>
+                
+
+                   {% for  role in roles %}
+                 
+                   <option value="{{role.id}}" {% if user.role == role.id %}selected{% endif %}>{{role.name}}</option>
+                  
+                 
+                   {% endfor %}
+                  </select> 
+                
+                <label for="subjects">Subject</label>
+                {% for s in subjects %}
+                {% if  s.id in user.subjects%}
+                
+               
+                <input type="checkbox" id="check{{s.id}}" name="subjects" value="{{s.id}}" style="float: left; margin-top: 5px;" checked>
+                <label for="check{{s.id}}"> {{s.name}}</label>
+
+                {% else %}
+                <input type="checkbox" id="check{{s.id}}" name="subjects" value="{{s.id}}" style="float: left; margin-top: 5px;" >
+                <label for="check{{s.id}}"> {{s.name}}</label>
+
+                {% endif %}
+                {% endfor %}    
+                {% comment %} <select name="subjects" id="subjects">
+                    <option >Select Subject</option>
+                    {% for s in subjects %}
+                    <option value="{{s.id}}">{{s.name}}</option>
+                    {% endfor %}
+                </select> {% endcomment %}
+               
+                <label for="username">Username</label>
+                <input id="username" value="{{user.username}}" name="username" placeholder="type your username">
+                 
+                  <label for="password">Password</label>
+                  <input id="password" name="password" placeholder="typeyour password ">
+  
+                <button class="post-button" type="submit" >Update</button>
+            </form>
+        </section>
+  
+
+        
+<script>
+    
+function getImage(event){
+
+    console.log(event.target.files[0])
+      var image=URL.createObjectURL(event.target.files[0]);
+      var imagediv= document.getElementById('preview');
+      var newimg=document.createElement('img');
+      imagediv.innerHTML=''; 
+      newimg.src=image;
+      
+      imagediv.appendChild(newimg);
+      
+    }
+
+</script>
+
+
+    {% endblock %}
